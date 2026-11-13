@@ -147,10 +147,10 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     - Keep the order of returned values consistent: first background, then foreground.
     """
     if ask_yes_no("Do you want to change the default colors? (y/n): "):
-        backg_col = read_color("background")
-        foreg_col = read_color("foreground")
-        return backg_col, foreg_col
-    return BLACK, WHITE
+        return BLACK, WHITE
+    backg_col = read_color("background")
+    foreg_col = read_color("foreground")
+    return backg_col, foreg_col
 
 def read_color(prompt: str) -> tuple[int, int, int]:
     """Ask the user to enter the three RGB components of a color with each component in [0,255].
@@ -262,6 +262,7 @@ def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: i
             print("Error: Invalid input. Please enter a valid integer.")
 
 
+
 def ask_yes_no(prompt: str) -> bool:
     """ Ask the user a yes/no question and return the corresponding Boolean value.
 
@@ -316,10 +317,17 @@ def move_paddle(current_y: int, direction: int, speed: int, height: int, paddle_
     Take into account that the paddle must always stay fully visible on screen.
     That is when it reaches the limits (up or down) it stays there, so consider paddle_h and height here.
     """
-    # TODO: put your code!!!!
-    
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
+    if direction == -1:
+        current_y -= speed
+    elif direction == 1:
+        current_y += speed
+
+    # Ensure the paddle stays within the screen bounds
+    if current_y < 0:
+        current_y = 0
+    elif current_y > height - paddle_h:
+        current_y = height - paddle_h
+
     return current_y
 
 
@@ -336,11 +344,8 @@ def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
     Note that collisions (i.e. with the paddles, with the walls) are not considered yet here, 
     but in the next 2 functions (collide_ball_walls and collide_ball_paddle)
     """
-
-    # TODO: put your code!!!!
-
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
+    x += vx
+    y += vy
     return x, y
 
 
@@ -362,10 +367,14 @@ def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int
         When hitting a horizontal wall, change the sign of vy
         For precisely detecting collisions, you might need to consider the ball radius
     """
-    # TODO: put your code!!!!
-
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
+    # Check for collision with top wall
+    if y - radius <= 0:
+        y = radius  # Move the ball just inside the top wall
+        vy = -vy    # Invert vertical velocity
+    # Check for collision with bottom wall
+    if y + radius >= height:
+        y = height - radius  # Move the ball just inside the bottom wall
+        vy = -vy             # Invert vertical velocity
     return x, y, vx, vy
 
 
@@ -418,11 +427,30 @@ def collide_ball_paddle(x: int, y: int, vx: int, vy: int, paddle_x: int, paddle_
     - The collision box ignores the ball's circular shape for simplicity,
       which is sufficient for this game.
     """
-    # TODO: put your code!!!!
+    # Define the ball's bounding box
     hit = False
+    ball_left = x - radius
+    ball_right = x + radius
+    ball_top = y - radius
+    ball_bottom = y + radius
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
+    paddle_left = paddle_x
+    paddle_right = paddle_x + paddle_w
+    paddle_top = paddle_y
+    paddle_bottom = paddle_y + paddle_h
+
+    # Check for collision
+    if (ball_left < paddle_right and ball_right > paddle_left and
+        ball_top < paddle_bottom and ball_bottom > paddle_top):
+        hit = True
+
+        if x < paddle_x + paddle_w / 2:  # Ball is to the left of the paddle
+            x = paddle_x - radius  # Move ball just outside the paddle
+            vx = -vx 
+        else:  # Ball is to the right of the paddle
+            x = paddle_x + paddle_w + radius  # Move ball just outside the paddle
+            vx = -vx  # Invert horizontal velocity
+        
     return x, y, vx, vy, hit
 
 def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool) -> tuple[int, int, int, int]:
@@ -458,11 +486,12 @@ def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool)
     - The horizontal velocity must point in the correct direction depending on `to_right`.
     - Optionally, randomize the vertical velocity slightly (e.g., sign or magnitude) for variability.
     """
-
-    # TODO: put your code!!!!
-
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate/modify it when adding your code
+    # Set the horizontal velocity based on the direction
+    if to_right:
+        vx0 = abs(vx0)  # Ensure it's positive
+    else:
+        vx0 = -abs(vx0)  # Ensure it's negative
+    
     return center_x, center_y, vx0, vy0
 
 
@@ -496,11 +525,15 @@ def compute_ai_direction(ball_y: int, paddle_y: int, paddle_h: int) -> int:
     You might want to use a small tolerance margin so the paddle doesn't “vibrate” 
     when the ball is aligned enough.
     """
-    # TODO: put your code!!!!
-
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
-    return 0
+    paddle_center_y = paddle_y + paddle_h / 2
+    tolerance = 5  # pixels
+    
+    if ball_y < paddle_center_y - tolerance:
+        return -1
+    elif ball_y > paddle_center_y + tolerance:
+        return 1
+    else:
+        return 0
 
 # =============================================
 # Checking KEYS UP/DOWN (given to the students)
