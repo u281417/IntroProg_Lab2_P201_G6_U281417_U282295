@@ -105,16 +105,16 @@ def get_config() -> tuple[int, int, int, int, int]:
       the chosen values, not modify constants.
     - Remember to maintain the same order of the returned elements.
     """
-    if ask_yes_no("Do you want to change the default game parameters? (y/n): "):
-        paddle_h = read_int_in_range("Enter paddle height (60-160): ", 60, 160)
-        speed_paddle = read_int_in_range("Enter paddle speed (1-20): ", 1, 20)
-        speed_ball_x = read_int_in_range("Enter ball X speed (1-20): ", 1, 20)
-        speed_ball_y = read_int_in_range("Enter ball Y speed (1-20): ", 1, 20)
-        ball_radius = read_int_in_range("Enter ball radius (5-30): ", 5, 30)
-        return paddle_h, speed_paddle, speed_ball_x, speed_ball_y, ball_radius
+    if not ask_yes_no("Quieres cambiar los valores por defecto? (y/n): "): #si dice que no, devuelve los valores por defecto
+        return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS
 
+    paddle_height = read_int_in_range("Altura de la pala (60-160): ", 60, 160) #altura de la pala
+    paddle_speed = read_int_in_range("Velocidad de la pala (1-20): ", 1, 20) #velocidad de la pala
+    ball_x_speed = read_int_in_range("Velocidad del balón en el eje X (1-20): ", 1, 20) #velocidad del balón en el eje X
+    ball_y_speed = read_int_in_range("Velocidad del balón en el eje Y (1-20): ", 1, 20) #velocidad del balón en el eje Y
+    ball_radius = read_int_in_range("Radio del balón (1-20): ", 1, 20) #radio del balón
 
-    return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS 
+    return paddle_height, paddle_speed, ball_x_speed, ball_y_speed, ball_radius
 
 def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     """ Ask the user if they want to modify the game colors (background and foreground).
@@ -146,11 +146,17 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     - Remember that colors in pygame are defined as tuples of 3 integers: (red, green, blue)
     - Keep the order of returned values consistent: first background, then foreground.
     """
-    if ask_yes_no("Do you want to change the default colors? (y/n): "):
+    if not ask_yes_no("Quieres cambiar los colores por defecto? (y/n): "):
         return BLACK, WHITE
-    backg_col = read_color("background")
-    foreg_col = read_color("foreground")
-    return backg_col, foreg_col
+
+    background_color = read_color("background")
+    foreground_color = read_color("foreground")
+
+    if background_color == foreground_color:
+        print("Los colores de fondo y primer plano no pueden ser iguales. Se usarán los valores por defecto.")
+        return BLACK, WHITE
+
+    return background_color, foreground_color
 
 def read_color(prompt: str) -> tuple[int, int, int]:
     """Ask the user to enter the three RGB components of a color with each component in [0,255].
