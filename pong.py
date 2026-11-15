@@ -202,6 +202,11 @@ def read_color(prompt: str) -> tuple[int, int, int]:
 
     # TODO: put your code!!!!
     # return r, g, b
+    
+    r = read_int_in_range(f"Enter {prompt} color - Red component (0-255): ", 0, 255)
+    g = read_int_in_range(f"Enter {prompt} color - Green component (0-255): ", 0, 255)
+    b = read_int_in_range(f"Enter {prompt} color - Blue component (0-255): ", 0, 255)
+    return r, g, b
 
 def read_int_in_range(prompt: str, low: int, high: int) -> int:
     """Ask user for an integer within [low, high]. 
@@ -225,6 +230,18 @@ def read_int_in_range(prompt: str, low: int, high: int) -> int:
     """
     
     # TODO: put your code!!!!
+    
+    while True:
+        try:
+            value = int(input(prompt))
+
+            if low <= value <= high:
+                return value
+            else:
+                print(f"El numero entero debe estar entre {low} y {high}.")
+                
+        except ValueError:
+            print("Error: Introduece un número entero válido.")
 
 def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: int) -> int:
     """ Advanced/alternate more user-friendly version of read_int_in_range().
