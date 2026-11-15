@@ -413,6 +413,14 @@ def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int
     """
     # TODO: put your code!!!!
 
+    if y - radius <= 0:  
+        y = radius  
+        vy = -vy   
+
+    elif y + radius >= height:  
+        y = height - radius  
+        vy = -vy            
+    
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
     return x, y, vx, vy
@@ -546,7 +554,7 @@ def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool)
     if random.random() < 0.5:
         vy = -vy #Con un 50% de probabilidad la pelota empezaró subiendo en vez de bajando  
 
-    return center_x, center_y, vx0, vy0
+    return center_x, center_y, vx, vy
 
 
 
