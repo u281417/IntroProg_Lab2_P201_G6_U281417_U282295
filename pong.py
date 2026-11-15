@@ -499,6 +499,8 @@ def collide_ball_paddle(x: int, y: int, vx: int, vy: int, paddle_x: int, paddle_
         else:
             x = int(paddle_right + radius)
         vx = -vx
+    else:
+        hit = False
 
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
