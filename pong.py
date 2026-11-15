@@ -112,7 +112,7 @@ def get_config() -> tuple[int, int, int, int, int]:
     # It corresponds to the user answering NO to changing any default values 
     # You will need to eliminate it when adding your code
 
-    if not ask_yes_no("Quieres cambiar los valores por defecto? (y/n): "): #si dice que no, devuelve los valores por defecto
+    if not ask_yes_no("Quieres cambiar los valores por defecto?: "): #si dice que no, devuelve los valores por defecto
         return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS
 
     paddle_height = read_int_in_range("Altura de la pala (60-160): ", 60, 160) #altura de la pala
