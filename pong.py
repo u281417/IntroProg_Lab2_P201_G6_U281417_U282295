@@ -351,19 +351,17 @@ def move_paddle(current_y: int, direction: int, speed: int, height: int, paddle_
     """
     # TODO: put your code!!!!
     
-    def move_paddle(current_y: int, direction: int, speed: int, height: int, paddle_h: int) -> int:
+    if direction == -1:  #se mueve hacia arriba
+        current_y -= speed
+    elif direction == 1:  #se mueve hacia abajo
+        current_y += speed
 
-        if direction == -1:  #se mueve hacia arriba
-            current_y -= speed
-        elif direction == 1:  #se mueve hacia abajo
-            current_y += speed
+    if current_y < 0:  #si se sale por arriba
+        current_y = 0
+    elif current_y > height - paddle_h:  #si se sale por abajo
+        current_y = height - paddle_h
 
-        if current_y < 0:  #si se sale por arriba
-            current_y = 0
-        elif current_y > height - paddle_h:  #si se sale por abajo
-            current_y = height - paddle_h
-
-        return current_y
+    return current_y
 
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
