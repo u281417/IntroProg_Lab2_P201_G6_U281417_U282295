@@ -111,7 +111,17 @@ def get_config() -> tuple[int, int, int, int, int]:
     # This line of code has been left for letting the full program work
     # It corresponds to the user answering NO to changing any default values 
     # You will need to eliminate it when adding your code
-    return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS 
+
+    if not ask_yes_no("Quieres cambiar los valores por defecto? (y/n): "): #si dice que no, devuelve los valores por defecto
+        return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS
+
+    paddle_height = read_int_in_range("Altura de la pala (60-160): ", 60, 160) #altura de la pala
+    paddle_speed = read_int_in_range("Velocidad de la pala (1-20): ", 1, 20) #velocidad de la pala
+    ball_x_speed = read_int_in_range("Velocidad del balón en el eje X (1-20): ", 1, 20) #velocidad del balón en el eje X
+    ball_y_speed = read_int_in_range("Velocidad del balón en el eje Y (1-20): ", 1, 20) #velocidad del balón en el eje Y
+    ball_radius = read_int_in_range("Radio del balón (1-20): ", 1, 20) #radio del balón
+
+    return paddle_height, paddle_speed, ball_x_speed, ball_y_speed, ball_radius #sigue el mismo orden del enunciado 
 
 def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     """ Ask the user if they want to modify the game colors (background and foreground).
@@ -146,9 +156,20 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
 
     # TODO: put your code!!!!
 
+    if not ask_yes_no("Quieres cambiar los colores por defecto? (y/n): "): #pregunta si quiere cambiar los colores, si dice que no devuelve los valores por defecto
+        return BLACK, WHITE
+
+    background_color = read_color("background") #color del fondo
+    foreground_color = read_color("foreground") #color del primer plano
+
+    if background_color == foreground_color:
+        print("Los colores de fondo y primer plano no pueden ser iguales. Se usarán los valores por defecto.")
+        return BLACK, WHITE
+
+    return background_color, foreground_color
+
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
-    return BLACK, WHITE
 
 def read_color(prompt: str) -> tuple[int, int, int]:
     """Ask the user to enter the three RGB components of a color with each component in [0,255].
