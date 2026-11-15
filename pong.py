@@ -156,7 +156,7 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
 
     # TODO: put your code!!!!
 
-    if not ask_yes_no("Quieres cambiar los colores por defecto? (y/n): "): #pregunta si quiere cambiar los colores, si dice que no devuelve los valores por defecto
+    if not ask_yes_no("Quieres cambiar los colores por defecto?: "): #pregunta si quiere cambiar los colores, si dice que no devuelve los valores por defecto
         return BLACK, WHITE
 
     background_color = read_color("background") #color del fondo
