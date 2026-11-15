@@ -382,7 +382,11 @@ def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
     """
 
     # TODO: put your code!!!!
-
+    
+    def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
+        new_x = x + vx
+        new_y = y + vy
+        return new_x, new_y
 
 
     # This line of code has been left for letting the full program work
