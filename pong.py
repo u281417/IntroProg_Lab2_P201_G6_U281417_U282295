@@ -67,7 +67,7 @@ KEY_UP_RIGHT = pygame.K_UP          # arrow UP
 KEY_DOWN_RIGHT = pygame.K_DOWN      # arrow DOWN
 
 # Play against machine (optional feature): set to True once compute_ai_direction() is implemented
-PLAY_AGAINST_MACHINE = False
+PLAY_AGAINST_MACHINE = True
 
 # ==============================================================================
 # Functions to complete by the students : configuration/setup before game starts
