@@ -235,7 +235,7 @@ def read_int_in_range(prompt: str, low: int, high: int) -> int:
                 print(f"El numero entero debe estar entre {low} y {high}.") 
                 
         except ValueError: #se ejecuta si el input del usuario no es un entero
-            print("Error: Introduece un número entero válido.")
+            print("Error: Introduce un número entero válido.")
 
 def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: int) -> int:
     """ Advanced/alternate more user-friendly version of read_int_in_range().
@@ -282,9 +282,9 @@ def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: i
             if low <= value <= high:
                 return value
             else:
-                print(f"Error: Please enter an integer between {low} and {high}.")
+                print(f"Error: El numero entero debe estar entre {low} y {high}.")
         except ValueError:
-            print("Error: Invalid input. Please enter a valid integer.")
+            print("Error: Introduce un número entero válido.")
 
 
 def ask_yes_no(prompt: str) -> bool:
@@ -323,7 +323,7 @@ def ask_yes_no(prompt: str) -> bool:
         elif answer in ("n", "no"): #reconocemos las respuestas negativas
             return False
         else:
-            print("Please answer y/n.")
+            print("Contesta y/n.")
 
 # ================================
 # Functions to complete: main game
