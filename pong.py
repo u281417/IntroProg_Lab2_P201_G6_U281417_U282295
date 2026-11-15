@@ -278,6 +278,19 @@ def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: i
     """
     
     # TODO: put your code!!!!
+    
+    while True:
+        user_input = input(prompt)
+        if user_input == "":
+            return default_val
+        try:
+            value = int(user_input)
+            if low <= value <= high:
+                return value
+            else:
+                print(f"Error: Please enter an integer between {low} and {high}.")
+        except ValueError:
+            print("Error: Invalid input. Please enter a valid integer.")
 
 
 def ask_yes_no(prompt: str) -> bool:
