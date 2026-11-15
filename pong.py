@@ -108,10 +108,6 @@ def get_config() -> tuple[int, int, int, int, int]:
 
     # TODO: put your code!!!!
 
-    # This line of code has been left for letting the full program work
-    # It corresponds to the user answering NO to changing any default values 
-    # You will need to eliminate it when adding your code
-
     if not ask_yes_no("Quieres cambiar los valores por defecto?: "): #si dice que no, devuelve los valores por defecto
         return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS
 
@@ -168,8 +164,6 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
 
     return background_color, foreground_color #devuelve los colores elegidos por el usuario, primero el de fondo y luego el del primer plano
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
 
 def read_color(prompt: str) -> tuple[int, int, int]:
     """Ask the user to enter the three RGB components of a color with each component in [0,255].
@@ -363,9 +357,6 @@ def move_paddle(current_y: int, direction: int, speed: int, height: int, paddle_
 
     return current_y
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
-
 
 def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
     """Move the ball one time step. Return (x', y').
@@ -386,10 +377,6 @@ def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
     new_x = x + vx #nueva posición horizontal de la pelota
     new_y = y + vy #nueva posición vertical de la pelota
     return new_x, new_y #devuelve las nuevas posiciones de la pelota
-
-
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
 
 
 def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int, height: int) -> tuple[int, int, int, int]:
@@ -420,8 +407,6 @@ def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int
         y = height - radius    #ajustamos la posición vertical
         vy = -vy     #cambiamos la dirección vertical
     
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
     return x, y, vx, vy #devuelve las nuevas posiciones y velocidades de la pelota
 
 
@@ -504,8 +489,6 @@ def collide_ball_paddle(x: int, y: int, vx: int, vy: int, paddle_x: int, paddle_
     else:
         hit = False #no se ha producido colisión, por lo que hit es False
 
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
     return x, y, vx, vy, hit
 
 def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool) -> tuple[int, int, int, int]:
@@ -543,9 +526,6 @@ def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool)
     """
 
     # TODO: put your code!!!!
-
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate/modify it when adding your code
 
     if to_right: #mira hacia que lado se ha de servir la pelota, hacia la izquierda o la derecha
         vx = vx0 
@@ -591,9 +571,6 @@ def compute_ai_direction(ball_y: int, paddle_y: int, paddle_h: int) -> int:
     when the ball is aligned enough.
     """
     # TODO: put your code!!!!
-
-    # This line of code has been left for letting the full program work
-    # You will need to eliminate it when adding your code
 
     paddle_center = paddle_y + paddle_h / 2 #Centro de la pala
     tolerance = 10 #Margen (en pixeles) para que la pala no vibre
