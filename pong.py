@@ -431,6 +431,29 @@ def collide_ball_paddle(x: int, y: int, vx: int, vy: int, paddle_x: int, paddle_
     """
     # TODO: put your code!!!!
     hit = False
+    
+    #Aplicamos los bordes de todas las direcciones de la pelota
+    
+    ball_left = x - radius
+    ball_right = x + radius
+    ball_top = y - radius
+    ball_bottom = y + radius
+    
+    #Aplicamos los bordes de la pala
+    
+    paddle_left = paddle_x
+    paddle_right = paddle_x + paddle_w
+    paddle_top = paddle_y
+    paddle_bottom = paddle_y + paddle_h
+    
+    hit = (ball_right > paddle_left and ball_left < paddle_right and ball_bottom > paddle_top and ball_top < paddle_bottom)
+    
+    if hit:
+        if vx > 0:
+            x = int(paddle_left - radius)
+        else:
+            x = int(paddle_right + radius)
+        vx = -vx
 
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
