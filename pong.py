@@ -342,9 +342,17 @@ def move_paddle(current_y: int, direction: int, speed: int, height: int, paddle_
     """
     # TODO: put your code!!!!
     
+    while True:
+        answer = input(prompt + " (y/n): ").strip().lower()
+        if answer in ("y", "yes"):
+            return True
+        elif answer in ("n", "no"):
+            return False
+        else:
+            print("Please answer y/n.")
+
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
-    return current_y
 
 
 def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
@@ -363,9 +371,10 @@ def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
 
     # TODO: put your code!!!!
 
+    
+
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
-    return x, y
 
 
 def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int, height: int) -> tuple[int, int, int, int]:
