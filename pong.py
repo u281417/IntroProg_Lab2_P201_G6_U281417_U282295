@@ -159,14 +159,14 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     if not ask_yes_no("Quieres cambiar los colores por defecto?: "): #pregunta si quiere cambiar los colores, si dice que no devuelve los valores por defecto
         return BLACK, WHITE
 
-    background_color = read_color("background") #color del fondo
-    foreground_color = read_color("foreground") #color del primer plano
+    background_color = read_color("fondo") #color del fondo
+    foreground_color = read_color("primer plano") #color del primer plano
 
     if background_color == foreground_color:
         print("Los colores de fondo y primer plano no pueden ser iguales. Se usarán los valores por defecto.")
         return BLACK, WHITE
 
-    return background_color, foreground_color
+    return background_color, foreground_color #devuelve los colores elegidos por el usuario, primero el de fondo y luego el del primer plano
 
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
@@ -203,9 +203,9 @@ def read_color(prompt: str) -> tuple[int, int, int]:
     # TODO: put your code!!!!
     # return r, g, b
     
-    r = read_int_in_range(f"Enter {prompt} color - Red component (0-255): ", 0, 255)
-    g = read_int_in_range(f"Enter {prompt} color - Green component (0-255): ", 0, 255)
-    b = read_int_in_range(f"Enter {prompt} color - Blue component (0-255): ", 0, 255)
+    r = read_int_in_range(f"Introduce el color del {prompt} - Componente Rojo (0-255): ", 0, 255) #eliges el color del fondo o del primer plano, dependiendo de lo que hayas elegido antes
+    g = read_int_in_range(f"Introduce el color del {prompt} - Componente Verde (0-255): ", 0, 255) #eliges el color del fondo o del primer plano, dependiendo de lo que hayas elegido antes
+    b = read_int_in_range(f"Introduce el color del {prompt} - Componente Azul (0-255): ", 0, 255) #eliges el color del fondo o del primer plano, dependiendo de lo que hayas elegido antes
     return r, g, b
 
 def read_int_in_range(prompt: str, low: int, high: int) -> int:
@@ -233,14 +233,14 @@ def read_int_in_range(prompt: str, low: int, high: int) -> int:
     
     while True:
         try:
-            value = int(input(prompt))
+            value = int(input(prompt)) #convertimos el input del usuario a entero
 
-            if low <= value <= high:
-                return value
+            if low <= value <= high: #comprobamos que el valor esté dentro del rango permitido
+                return value #devuelve el valor si está dentro del rango
             else:
-                print(f"El numero entero debe estar entre {low} y {high}.")
+                print(f"El numero entero debe estar entre {low} y {high}.") 
                 
-        except ValueError:
+        except ValueError: #se ejecuta si el input del usuario no es un entero
             print("Error: Introduece un número entero válido.")
 
 def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: int) -> int:
@@ -280,8 +280,8 @@ def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: i
     # TODO: put your code!!!!
     
     while True:
-        user_input = input(prompt)
-        if user_input == "":
+        user_input = input(prompt) #lee el input del usuario
+        if user_input == "": #si presiona enter sin escribir nada, devuelve el valor por defecto
             return default_val
         try:
             value = int(user_input)
@@ -323,10 +323,10 @@ def ask_yes_no(prompt: str) -> bool:
     # TODO: put your code!!!!
 
     while True:
-        answer = input(prompt + " (y/n): ").strip().lower()
-        if answer in ("y", "yes"):
+        answer = input(prompt + " (y/n): ").strip().lower() #quitamos espacios y convertimos a minusculas
+        if answer in ("y", "yes"): #reconocemos las respuestas afirmativas
             return True
-        elif answer in ("n", "no"):
+        elif answer in ("n", "no"): #reconocemos las respuestas negativas
             return False
         else:
             print("Please answer y/n.")
@@ -383,9 +383,9 @@ def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
 
     # TODO: put your code!!!!
     
-    new_x = x + vx
-    new_y = y + vy
-    return new_x, new_y
+    new_x = x + vx #nueva posición horizontal de la pelota
+    new_y = y + vy #nueva posición vertical de la pelota
+    return new_x, new_y #devuelve las nuevas posiciones de la pelota
 
 
     # This line of code has been left for letting the full program work
@@ -412,17 +412,17 @@ def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int
     """
     # TODO: put your code!!!!
 
-    if y - radius <= 0:  
-        y = radius  
-        vy = -vy   
+    if y - radius <= 0:   #si la pelota toca la pared superior
+        y = radius  #ajustamos la posición vertical
+        vy = -vy   #cambiamos la dirección vertical
 
-    elif y + radius >= height:  
-        y = height - radius  
-        vy = -vy            
+    elif y + radius >= height:  #si la pelota toca la pared inferior
+        y = height - radius    #ajustamos la posición vertical
+        vy = -vy     #cambiamos la dirección vertical
     
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
-    return x, y, vx, vy
+    return x, y, vx, vy #devuelve las nuevas posiciones y velocidades de la pelota
 
 
 def collide_ball_paddle(x: int, y: int, vx: int, vy: int, paddle_x: int, paddle_y: int, paddle_w: int, paddle_h: int, radius: int) -> tuple[int, int, int, int, bool]:
@@ -492,15 +492,17 @@ def collide_ball_paddle(x: int, y: int, vx: int, vy: int, paddle_x: int, paddle_
     paddle_bottom = paddle_y + paddle_h
     
     hit = (ball_right > paddle_left and ball_left < paddle_right and ball_bottom > paddle_top and ball_top < paddle_bottom)
-    
+
+
+    #solo invertimos la velocidad horizontal y ajustamos la posición de la pelota si hay colisión
     if hit:
-        if vx > 0:
+        if vx > 0: #si la pelota se mueve hacia la derecha, ajustamos la posición de la pelota a la izquierda de la pala
             x = int(paddle_left - radius)
-        else:
+        else: #si la pelota se mueve hacia la izquierda, ajustamos la posición de la pelota a la derecha de la pala
             x = int(paddle_right + radius)
-        vx = -vx
+        vx = -vx #invertimos la velocidad horizontal
     else:
-        hit = False
+        hit = False #no se ha producido colisión, por lo que hit es False
 
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
@@ -545,7 +547,7 @@ def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool)
     # This line of code has been left for letting the full program work
     # You will need to eliminate/modify it when adding your code
 
-    if to_right: #Mira hacia que lado se ha de servir la pelota, hacia la izquierda o la derecha
+    if to_right: #mira hacia que lado se ha de servir la pelota, hacia la izquierda o la derecha
         vx = vx0 
     else:
         vx = -vx0 
@@ -553,7 +555,7 @@ def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool)
     vy = random.randint(max(1, vy0 -2), vy0 + 2) #velocidad vertical aleatoria cerca de vy0, que nunca sea 0
 
     if random.random() < 0.5:
-        vy = -vy #Con un 50% de probabilidad la pelota empezaró subiendo en vez de bajando  
+        vy = -vy #con un 50% de probabilidad la pelota empezaró subiendo en vez de bajando  
 
     return center_x, center_y, vx, vy
 
