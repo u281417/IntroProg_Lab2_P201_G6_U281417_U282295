@@ -322,6 +322,15 @@ def ask_yes_no(prompt: str) -> bool:
     """
     # TODO: put your code!!!!
 
+    while True:
+        answer = input(prompt + " (y/n): ").strip().lower()
+        if answer in ("y", "yes"):
+            return True
+        elif answer in ("n", "no"):
+            return False
+        else:
+            print("Please answer y/n.")
+
 # ================================
 # Functions to complete: main game
 # ================================
@@ -342,14 +351,19 @@ def move_paddle(current_y: int, direction: int, speed: int, height: int, paddle_
     """
     # TODO: put your code!!!!
     
-    while True:
-        answer = input(prompt + " (y/n): ").strip().lower()
-        if answer in ("y", "yes"):
-            return True
-        elif answer in ("n", "no"):
-            return False
-        else:
-            print("Please answer y/n.")
+    def move_paddle(current_y: int, direction: int, speed: int, height: int, paddle_h: int) -> int:
+
+        if direction == -1:  #se mueve hacia arriba
+            current_y -= speed
+        elif direction == 1:  #se mueve hacia abajo
+            current_y += speed
+
+        if current_y < 0:  #si se sale por arriba
+            current_y = 0
+        elif current_y > height - paddle_h:  #si se sale por abajo
+            current_y = height - paddle_h
+
+        return current_y
 
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
@@ -371,7 +385,7 @@ def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
 
     # TODO: put your code!!!!
 
-    
+
 
     # This line of code has been left for letting the full program work
     # You will need to eliminate it when adding your code
