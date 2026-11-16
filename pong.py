@@ -106,8 +106,6 @@ def get_config() -> tuple[int, int, int, int, int]:
     - Remember to maintain the same order of the returned elements.
     """
 
-    # TODO: put your code!!!!
-
     if not ask_yes_no("Quieres cambiar los valores por defecto?: "): #si dice que no, devuelve los valores por defecto
         return PADDLE_H, SPEED_PADDLE, SPEED_BALL_X, SPEED_BALL_Y, BALL_RADIUS
 
@@ -150,8 +148,6 @@ def change_colors() -> tuple[tuple[int, int, int], tuple[int, int, int]]:
     - Keep the order of returned values consistent: first background, then foreground.
     """
 
-    # TODO: put your code!!!!
-
     if not ask_yes_no("Quieres cambiar los colores por defecto?: "): #pregunta si quiere cambiar los colores, si dice que no devuelve los valores por defecto
         return BLACK, WHITE
 
@@ -193,9 +189,6 @@ def read_color(prompt: str) -> tuple[int, int, int]:
     - In pygame, colors are always expressed as (R, G, B) tuples.
     - Keep the order (Red, then Green, then Blue).
     """ 
-
-    # TODO: put your code!!!!
-    # return r, g, b
     
     r = read_int_in_range(f"Introduce el color del {prompt} - Componente Rojo (0-255): ", 0, 255) #eliges el color del fondo o del primer plano, dependiendo de lo que hayas elegido antes
     g = read_int_in_range(f"Introduce el color del {prompt} - Componente Verde (0-255): ", 0, 255) #eliges el color del fondo o del primer plano, dependiendo de lo que hayas elegido antes
@@ -222,8 +215,6 @@ def read_int_in_range(prompt: str, low: int, high: int) -> int:
     -------
     An integer value such that low <= value <= high.
     """
-    
-    # TODO: put your code!!!!
     
     while True:
         try:
@@ -270,9 +261,7 @@ def read_int_in_range_w_default(prompt: str, low: int, high: int, default_val: i
     int
         The integer entered by the user, or `default_val` if the user pressed ENTER.
     """
-    
-    # TODO: put your code!!!!
-    
+        
     while True:
         user_input = input(prompt) #lee el input del usuario
         if user_input == "": #si presiona enter sin escribir nada, devuelve el valor por defecto
@@ -314,7 +303,6 @@ def ask_yes_no(prompt: str) -> bool:
     - Print a short message (e.g. "Please answer y/n.") when the answer is invalid.
     - Return only after receiving a valid input; do not stop the program with errors.
     """
-    # TODO: put your code!!!!
 
     while True:
         answer = input(prompt + " (y/n): ").strip().lower() #quitamos espacios y convertimos a minusculas
@@ -343,7 +331,6 @@ def move_paddle(current_y: int, direction: int, speed: int, height: int, paddle_
     Take into account that the paddle must always stay fully visible on screen.
     That is when it reaches the limits (up or down) it stays there, so consider paddle_h and height here.
     """
-    # TODO: put your code!!!!
     
     if direction == -1:  #se mueve hacia arriba
         current_y -= speed
@@ -372,8 +359,6 @@ def move_ball(x: int, y: int, vx: int, vy: int) -> tuple[int, int]:
     but in the next 2 functions (collide_ball_walls and collide_ball_paddle)
     """
 
-    # TODO: put your code!!!!
-    
     new_x = x + vx #nueva posición horizontal de la pelota
     new_y = y + vy #nueva posición vertical de la pelota
     return new_x, new_y #devuelve las nuevas posiciones de la pelota
@@ -397,7 +382,6 @@ def collide_ball_walls(x: int, y: int, vx: int, vy: int, radius: int, width: int
         When hitting a horizontal wall, change the sign of vy
         For precisely detecting collisions, you might need to consider the ball radius
     """
-    # TODO: put your code!!!!
 
     if y - radius <= 0:   #si la pelota toca la pared superior
         y = radius  #ajustamos la posición vertical
@@ -459,7 +443,7 @@ def collide_ball_paddle(x: int, y: int, vx: int, vy: int, paddle_x: int, paddle_
     - The collision box ignores the ball's circular shape for simplicity,
       which is sufficient for this game.
     """
-    # TODO: put your code!!!!
+
     hit = False
     
     #Aplicamos los bordes de todas las direcciones de la pelota
@@ -525,8 +509,6 @@ def reset_ball(center_x: int, center_y: int, vx0: int, vy0: int, to_right: bool)
     - Optionally, randomize the vertical velocity slightly (e.g., sign or magnitude) for variability.
     """
 
-    # TODO: put your code!!!!
-
     if to_right: #mira hacia que lado se ha de servir la pelota, hacia la izquierda o la derecha
         vx = vx0 
     else:
@@ -570,7 +552,6 @@ def compute_ai_direction(ball_y: int, paddle_y: int, paddle_h: int) -> int:
     You might want to use a small tolerance margin so the paddle doesn't “vibrate” 
     when the ball is aligned enough.
     """
-    # TODO: put your code!!!!
 
     paddle_center = paddle_y + paddle_h / 2 #Centro de la pala
     tolerance = 10 #Margen (en pixeles) para que la pala no vibre
